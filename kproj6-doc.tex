@@ -61,7 +61,7 @@ Na na na na na na na, Batman!!!
 \vspace{2.5cm}
 \begin{tabularx}{\textwidth}{@{\extracolsep{1cm}} X X }
 \dotfill & \dotfill \\
-~Arve Nygård & ~Anders Smedegaard \\[1cm]
+~Arve Nygård & ~Anders Smedegaard Pedersen \\[1cm]
 \dotfill & \dotfill \\
 ~Emil Jakobus Schroeder & ~Hans Kristian Henriksen \\[1cm]
 \dotfill & \dotfill \\
@@ -140,6 +140,83 @@ The group has used the first part of the project investigating what solutions wo
 Does not support NetCDF natively. There exsists a community plugin that enables you to read from NetCDF files, but the support seems very shifty. Does not seem to be support for more than a single file, and metadata looks like a pain to extract. Further investigation was aborted.
 
 \section{Front-end}
+
+  \subsection{Map services}
+
+  A central part of the product requirement is an interactive map to display simulated data in a dynamic manner. There exists several solutions to create such a map. In this section we will discuss and compare the most relevant of these in the context of our assignment and the product requirements.
+
+
+  %BEGINNING of existing tech template - COPY and reuse
+  \subsubsection{LeafletJS}
+  \begin{tabular}{|p{4cm}|p{8cm}|}
+    \hline
+    Home page: & \url{http://www.leafletjs.com} \\
+    \hline
+    Service functionality: & Creating mobile-friendly interactive maps. \\
+    \hline
+  \end{tabular}
+  
+  \paragraph{Introduction} \indent
+  LeafletJS ("Leaflet" for the rest of the section) is an open source javascript library for creating mobile-friendly interactive maps. it's licenced under the \href{'https://github.com/Leaflet/Leaflet/blob/master/LICENSE'}{2-clause BSD License}, which makes it free to use in comercial applications as long as a credit is added somewhere in the user interface.
+  Even though Leaflet is free to use it is dependant on a third party to provide the map tiles. These may not be free to use.
+
+  \paragraph{Features}
+  Leaflet has the features you'd expect from a modern interactive map. This includes paning with inertia, zooming and the ability to add markers. It also supports double-tap and pinch to zoom for IOS and Androidon mobile phones. Furthermore all the five biggest web browsers are supported, including graceful fallback for old versions.
+  The most powerful feature of Leaflet is the ability to add layers. 
+  \newline The different supported layers are:
+
+  \begin{itemize}
+    \item Tile layers
+    \item Marker layers
+    \item Pop-ups
+    \item Vector layers
+    \item GeoJSON layers
+    \item image overlays
+    \item WMS layers
+    \item Layer groups
+  \end{itemize}
+
+  For our purposes the ability to get map tiles from different sources may be very interesting. This gives us the ability to for example show both nautical maps and regular land maps at the convenience of the user. At zoom levels covering large geographical areas it will probably be most ideal to show the relevant simulated data as overlayed PNGs. This is easily achieved with image overlays in Leaflet. If we want to show very detailed data when zoomed further in, we might be able to use vector layers to visualize the data. It is also possible to use a GeoJSON layer to convert data formatted as GeoJSON to vectors.
+  It is also possible to use Web Map Service (WMS) to overlay, for example, metrological data on a map. Eventhough this is a format that is used by large organizations like the National Oceanic and Atsmopheric Administration (\url{noaa.gov}) we have been advised against using this format due to it's negative effect on the speed and responsiveness experieced by the end-user. \footnote{Cite the guy Marco talked with at Yahoo}
+  Furthermore Leaflet can be extended with plugins. These can relatively easily be written in Javascript or an excisting plugin can be downloaded and used. A relevant plugin to our needs could for exmaple be heatmap.js (http://www.patrick-wied.at/static/heatmapjs/).
+
+  \paragraph{Summary}
+  Leaflet is very suitable for our needs in respect to creating an interactive map overlayed with visualizations of relevant data created by the Sintef ocean forecast simulations. It's lightweight(33 kilobytes), made to be compatible with mobile phones and very flexible in possibilities to display data on maps. It's also well documented.
+
+  %END of existing tech template
+
+%BEGINNING of existing tech template - COPY and reuse
+\subsection{Solution name}
+\begin{tabular}{|p{4cm}|p{8cm}|}
+
+\hline
+Service page: & \url{http://www.address.com} \\%add link somehow
+\hline
+Service functionality: & Displaying weather or sea data. \\
+\hline
+Key technologies used: & PNG, Polygons, Thredds, WMS, TMS, JPG, GIF, OpenLayers, Leafjets, D3 \\
+\hline
+\end{tabular}
+\subsubsection{Introduction}
+Write short about the service, what it does and how it does it.
+\subsubsection{Initial load time}
+Write about the first loading of the map with overlays. How much time does it take (fast/ok/slow/very slow?).
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Responsiveness}
+Write about what happens when you scroll or pan. Does it take a long time?
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Detail and dynamism}
+How detailed are the plots, does it update image-sets on zooming? (Minus for static solutions.) 
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Ease of use}
+Write about how easy it is to use it. Do we manage to get it to do/show what we want. Do we have to click or otherwise navigate through a lot?
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Summary}
+Write about main strengths and weaknesses. Talk about what we can utilize/learn from this solution for other/custom solutions. Make priorities for score. Responsiveness is a bit less important while ease of use pulls more down than up (a bad ease of use can ruin all).
+\\ \emph{Overall rating: \textbf{Bad/Ok/Good/Very Good}}
+%alternativly : \textbf{Overall rating: Bad/Ok/Good/Very Good}
+%END of existing tech template
+
 %BEGINNING of existing tech template - COPY and reuse
 \subsection{Solution name}
 \begin{tabular}{|p{4cm}|p{8cm}|}
