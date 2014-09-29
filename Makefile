@@ -6,8 +6,8 @@ pdf:$(NAME).pdf
 
 $(NAME).pdf: clean
 	pdflatex $(NAME)
-#	bibtex $(NAME)
-#	pdflatex $(NAME)
+	bibtex $(NAME)
+	pdflatex $(NAME)
 	pdflatex $(NAME)
 
 edit:

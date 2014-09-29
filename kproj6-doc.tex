@@ -93,7 +93,7 @@ Na na na na na na na, Batman!!!
 \section{TDT 4290 - Customer driven project}
 The task is set forth in the subject TDT 4290 - Customer driven project at the Norwegian university of science and technology. The goal of the course is 
 \begin{quote}
-(...)to give the students a practical experience of carrying out all the phases of a typical customer guided IS/IT-project.\cite{TDT4290 intro}
+(...)to give the students a practical experience of carrying out all the phases of a typical customer guided IS/IT-project. \cite{TDT4290:Intro}
 \end{quote}
 The subject divides the students into random groups, and assigns each group an assignment. The assignments are real problems that businesses needs solved. 
 
@@ -135,7 +135,7 @@ In this chapter we will explore the solution SINTEF is currently using, and the 
 \end{center}
 \end{figure}
 
-The current system deployed at SINTEF serves their clients by providing access to a collection of more than 100 000 pre generated PDF files. These files contain information on currents, salinity, and temperature. The user may choose what information he wants by selecting parameters in the drop down menus, see figure ~\ref{fig:sinmod-region-main-interface}.
+The current system deployed at SINTEF serves their clients by providing access to a collection of more than 100 000 pre generated PDF files. These files contain information on currents, salinity, and temperature. The user may choose what information he wants by selecting parameters in the drop down menus, see figure \ref{fig:sinmod-region-main-interface}.
 
 \begin{figure}[h]
 \begin{center}
@@ -145,7 +145,7 @@ The current system deployed at SINTEF serves their clients by providing access t
 \end{center}
 \end{figure}
 
-If the user chooses a specific site from the map or location drop down, he will be presented with key data for this area. This includes statistical information such as maximum current speed, average current speed and so forth, as well as geographical position, as given in figure ~\ref{fig:sinmod-site-key-data}.
+If the user chooses a specific site from the map or location drop down, he will be presented with key data for this area. This includes statistical information such as maximum current speed, average current speed and so forth, as well as geographical position, as given in figure \ref{fig:sinmod-site-key-data}.
 
 
 \begin{figure}[h]
@@ -156,7 +156,7 @@ If the user chooses a specific site from the map or location drop down, he will 
 \end{center}
 \end{figure}
 
-The system will also present a set of pre defined graphs, including current roses, tidal ellipsis and vertical profiles. The graphs are given for standard attributes (e.g depth 2 meters), and for some of them, there is an option of downloading a PDF containing graphs for other values of the given attributes. An example is shown in figure ~\ref{fig:sinmod-site-graphs}
+The system will also present a set of pre defined graphs, including current roses, tidal ellipsis and vertical profiles. The graphs are given for standard attributes (e.g depth 2 meters), and for some of them, there is an option of downloading a PDF containing graphs for other values of the given attributes. An example is shown in figure \ref{fig:sinmod-site-graphs}
 
 
 \section{Challenges}
@@ -168,8 +168,7 @@ The same is true for the maps that can be generated for a specific site. The use
 
 For a user that knows what data is interesting, this is a complicated and data heavy way of delivering information. The PDFs seems to range in size from 125kB to around 3MB, depending on what information is requested. The region maps are the absolute largest in file size, ranging from 1 to 3MB, while the files containing the current roses are quite small, in the 100-200kB range. 
 
-On a computer with broadband connection, the size of the files is not very problematic. For these users, the biggest challenge is the fact that the user can not specify what kind of data they want plotted, and have to look through quite a lot of pages to get the information needed. For a user on a low bandwidth connection and/or on a mobile device, the size of the files is a more pressing problem. On an EDGE connection the theoretical best download time for a 3MB file is 62,5 seconds at 384kbit/s.
-http://www.3gpp.org/technologies/keywords-acronyms/102-gprs-edge
+On a computer with broadband connection, the size of the files is not very problematic. For these users, the biggest challenge is the fact that the user can not specify what kind of data they want plotted, and have to look through quite a lot of pages to get the information needed. For a user on a low bandwidth connection and/or on a mobile device, the size of the files is a more pressing problem. On an EDGE connection the theoretical best download time for a 3MB file is 62,5 seconds at 384kbit/s \cite{3gpp.com}.
 
 \section{Evaluation criteria}
 SINTEFs main goal with this project is to be able to rid themselves of the PDF store, and generate the information on demand. This will make for a much more flexible system, where it will be possible to add new graphs and functionality quickly. For the customers, it will make it possible to request more customised graphs and plots.
@@ -288,7 +287,7 @@ The group has used the first part of the project investigating what solutions wo
 
     For our purposes the ability to get map tiles from different sources may be very interesting. This gives us the ability to for example show both nautical maps and regular land maps at the convenience of the user. At zoom levels covering large geographical areas it will probably be most ideal to show the relevant simulated data as overlayed PNGs. This is easily achieved with image overlays in Leaflet. If we want to show very detailed data when zoomed further in, we might be able to use vector layers to visualize the data. It is also possible to use a GeoJSON layer to convert data formatted as GeoJSON to vectors.
     It is also possible to use Web Map Service (WMS) to overlay, for example, metrological data on a map. Eventhough this is a format that is used by large organizations like the National Oceanic and Atsmopheric Administration (\url{noaa.gov}) we have been advised against using this format due to it's negative effect on the speed and responsiveness experieced by the end-user. \footnote{Cite the guy Marco talked with at Yahoo}
-    Furthermore Leaflet can be extended with plugins. These can relatively easily be written in Javascript or an excisting plugin can be downloaded and used. A relevant plugin to our needs could for exmaple be heatmap.js (http://www.patrick-wied.at/static/heatmapjs/).
+    Furthermore Leaflet can be extended with plugins. These can relatively easily be written in Javascript or an excisting plugin can be downloaded and used. A relevant plugin to our needs could for exmaple be heatmap.js (\url{http://www.patrick-wied.at/static/heatmapjs/}).
 
     \paragraph{Summary}
     Leaflet is very suitable for our needs in respect to creating an interactive map overlayed with visualizations of relevant data created by the Sintef ocean forecast simulations. It's lightweight(33 kilobytes), made to be compatible with mobile phones and very flexible in possibilities to display data on maps. It's also well documented.
@@ -344,8 +343,9 @@ Based on the study of possible solutions in the previous chapter, the group will
 \chapter{Bibliography}
 \bibliographystyle{plain}
 \begin{flushleft}
+    \nocite{leafletjs.com}
+    \nocite{openlayers.org}
 	\bibliography{source_library}
-	\bibitem[1]{TDT4290 intro} BLALBALBLABLBA
 \end{flushleft}
 
 % Appendixes
