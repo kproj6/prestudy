@@ -127,14 +127,37 @@ The assignment set forth by SINTEF is to improve the current solution to be able
 \chapter{Current situation}
 In this chapter we will explore the solution SINTEF is currently using, and the challenges and limitations it poses. After looking into this, we will describe the evaluation criteria that will be used to assess the alternative solutions the group has found. 
 \section{Current system}
-<Figure of SinMod landing page for location>
-\\
-\\
-The current system deployed at SINTEF serves their clients by providing access to a collection of more than 100 000 pre generated PDF files. These files contain information on currents, salinity, and temperature. The user may choose what information he wants by selecting parameters in the drop down menus. 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=223px,width=396px]{img/region_interface_sinmod.png}
+\caption{The main interface for a region in SinMod}
+\label{fig:sinmod-region-main-interface}
+\end{center}
+\end{figure}
 
-If the user chooses a specific site from the map or location drop down, he will be presented with key data for this area. This includes statistical information such as maximum current speed, average current speed and so forth, as well as geographical position. 
+The current system deployed at SINTEF serves their clients by providing access to a collection of more than 100 000 pre generated PDF files. These files contain information on currents, salinity, and temperature. The user may choose what information he wants by selecting parameters in the drop down menus, see figure ~\ref{fig:sinmod-region-main-interface}.
 
-The system will also present a set of pre defined graphs, including current roses, tidal ellipsis and vertical profiles. The graphs are given for standard attributes (e.g depth 2 meters), and for some of them, there is an option of downloading a PDF containing graphs for other values of the given attributes. 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=223px,width=396px]{img/site_key_data.png}
+\caption{The key data a user is presented with when selecting a specific site}
+\label{fig:sinmod-site-key-data}
+\end{center}
+\end{figure}
+
+If the user chooses a specific site from the map or location drop down, he will be presented with key data for this area. This includes statistical information such as maximum current speed, average current speed and so forth, as well as geographical position, as given in figure ~\ref{fig:sinmod-site-key-data}.
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height=300px,width=300px]{img/site_graphs.png}
+\caption{The graphs presented to the user when selecting a specific site}
+\label{fig:sinmod-site-graphs}
+\end{center}
+\end{figure}
+
+The system will also present a set of pre defined graphs, including current roses, tidal ellipsis and vertical profiles. The graphs are given for standard attributes (e.g depth 2 meters), and for some of them, there is an option of downloading a PDF containing graphs for other values of the given attributes. An example is shown in figure ~\ref{fig:sinmod-site-graphs}
+
 
 \section{Challenges}
 As the PDFs are pre generated, there is a clear limitation to what information the user may request. If a user wants to know, for example, the connection between salinity and current speed at a given location, the user must download two different PDFs and manually compare these. 
