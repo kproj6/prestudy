@@ -194,6 +194,30 @@ The group has used the first part of the project investigating what solutions wo
 
 Does not support NetCDF natively. There exsists a community plugin that enables you to read from NetCDF files, but the support seems very shifty. Does not seem to be support for more than a single file, and metadata looks like a pain to extract. Further investigation was aborted.
 
+
+\subsection{Custom solution}
+An alternative is to write a custom back-end from scratch.
+Advantages of this are:
+\begin{itemize}
+\item Easy deployment - written as a single service that you just launch. One file.
+\item Load balancing - Easily scale outwards: Just put the servers behind a load balancer.
+\item Speed - No overhead for unused features
+\item Code clarity - No overhead for unused features
+\item Extensability - see above \ldots
+\end{itemize}
+A skeleton for the whole server is in place. Below is a list of features that are within reach in the project period. 
+The following features are not finished yet, but have a placeholder as of now:
+\begin{itemize}
+\item Indexing / file selection ( Use Lucene for this)
+\item Projection (Mappign between Lat/Long and file indices)
+\item Filtering (Reducing the result set / density before reading the file)
+\item Output
+\item Rendering to image (map) (Almost finished)
+\item Rendering to GeoJSON (Almost finished) \ldots
+\end{itemize}
+
+Performance seems to be very good at the current level of implementation. The only major potential bottleneck I see is reading files from a hard-drive. (All testing has been done on SSDs). This bottleneck is independent of backend solution, however.
+
 \section{Front-end}
 
   \subsection{Map services}
