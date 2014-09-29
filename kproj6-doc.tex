@@ -175,11 +175,50 @@ Does not support NetCDF natively. There exsists a community plugin that enables 
   \end{itemize}
 
   For our purposes the ability to get map tiles from different sources may be very interesting. This gives us the ability to for example show both nautical maps and regular land maps at the convenience of the user. At zoom levels covering large geographical areas it will probably be most ideal to show the relevant simulated data as overlayed PNGs. This is easily achieved with image overlays in Leaflet. If we want to show very detailed data when zoomed further in, we might be able to use vector layers to visualize the data. It is also possible to use a GeoJSON layer to convert data formatted as GeoJSON to vectors.
-  It is also possible to use Web Map Service (WMS) to overlay, for example, metrological data on a map. Eventhough this is a format that is used by large organizations like the National Oceanic and Atsmopheric Administration (\url{noaa.gov}) we have been advised against using this format due to it's negative effect on the speed and responsiveness experieced by the end-user. \footnote{Cite the guy Marco talked with at Yahoo}
+  It is also possible to use Web Map Service (WMS) to overlay, for example, metrological data on a map. Eventhough this is a format that is used by large organizations like the National Oceanic and Atsmopheric Administration (\url{noaa.gov}) we have been advised against using this format due to it's negative effect on the speed and responsiveness experieced by the end-user. \footnote{Iván Sánchez, How to build slow maps @ Geospatial Data and Location-based Search conference. Prinsens Gate 49, Trondheim, September 24, 2014}
   Furthermore Leaflet can be extended with plugins. These can relatively easily be written in Javascript or an excisting plugin can be downloaded and used. A relevant plugin to our needs could for exmaple be heatmap.js (http://www.patrick-wied.at/static/heatmapjs/).
 
   \paragraph{Summary}
   Leaflet is very suitable for our needs in respect to creating an interactive map overlayed with visualizations of relevant data created by the Sintef ocean forecast simulations. It's lightweight(33 kilobytes), made to be compatible with mobile phones and very flexible in possibilities to display data on maps. It's also well documented.
+
+  \subsubsection{OpenLayers}
+  \begin{tabular}{|p{4cm}|p{8cm}|}
+    \hline
+    Home page: & \url{http://openlayers.org/} \\
+    \hline
+    Service functionality: & A high-performance, feature-packed library for all your mapping needs. \\
+    \hline
+  \end{tabular}
+  
+  \paragraph{Introduction} \indent
+  OpenLayers is an open source (provided under the \href{'https://github.com/Leaflet/Leaflet/blob/master/LICENSE'}{2-clause BSD License}) JavaScript library for displaying map data in web browsers. It provides an API for building rich web-based geographic applications similar to Google Maps and Bing Maps. The library was originally based on the Prototype JavaScript Framework. Since November 2007 OpenLayers is an Open Source Geospatial Foundation project.
+  The current stable version, OpenLayers 3.0, has been released August 29, 2014.
+
+  \paragraph{Features}
+  OpenLayers provides support to the following functionalities:
+
+  \begin{description}
+    \item[Tile layers] It pulls tiles from OSM, Bing, MapBox, Stamen, MapQuest, and any other XYZ source you can find. OGC mapping services and untiled layers also supported.
+    \item[Vector layers] Renders vector data from GeoJSON, TopoJSON, KML, GML, and a growing number of other formats.
+    \item[Fast \& Mobile Ready] Mobile support is out of the box, and it is possible to build lightweight custom profiles with just the needed components.
+    \item[Cutting Edge \& Easy to Customize] Map rendering leverages WebGL, Canvas 2D, and HTML5. Map styling is controlled with straight-forward CSS.
+  \end{description}
+
+  \subsubsection{Initial load time}
+  The initial load time of the map is ok on a PC. The total loading time of the example (html with map and WMS tiles) took around 4 seconds. The size of the Javascript library (ol.js) is 129 KB, and first time (so without any sot of browser caching) it has been fetched in 473 ms.
+  \\ \emph{Score: \textbf{Med}}
+  \subsubsection{Responsiveness}
+  It's quite fast when pan, but not so fast when zooming in (438 ms + 2.43 s for DNS lookup of the WMS server in the example) or out (around 400 ms was logged, on average, as the time to get tiles from the server, because there is no need of DNS lookup, but the overall perceived time is around 1s).
+  \\ \emph{Score: \textbf{Med}}
+  \subsubsection{Detail and dynamism}
+  The detail of the image is defined by PNG provided by the WMS server. Vector layers are also well drawn. Tile layers are updated on zooming.
+  \\ \emph{Score: \textbf{High}}
+  \subsubsection{Ease of use}
+  It is quite easy to implement. The code needed is low, and it is easily convertable into Leaflet format. There are a lot of provided working examples, but it is not well documented yet for the version 3.0 (that has been released very recently: at the end of August 2014). Anyway, the detailed API documentation is provided.
+  \\ \emph{Score: \textbf{Med}}
+  \subsubsection{Summary}
+  It is a library used in a lot of applications, dynamic, with a lot of features. On the contrary, it is less lightweight than LeafletJS, not so well documented and not always so fast as experienced by the user, especially in zooming.
+  \\ \emph{Overall rating: \textbf{Good}}
 
 %BEGINNING of existing tech template - COPY and reuse
 \subsection{Solution name}
@@ -213,12 +252,19 @@ Write about main strengths and weaknesses. Talk about what we can utilize/learn 
 %alternativly : \textbf{Overall rating: Bad/Ok/Good/Very Good}
 %END of existing tech template
 
+%Existing tech - Italian solution
+\subsection{Adriatic Forecasting System}
+\emph{Link: \url{http://oceanlab.cmcc.it/afs/}} \\%make sure to use //
+  The solution, by the Operational Oceanography Group Italy and cmcc Ocean-Lab, can display temperature, salinity, currents, sea surface height, wind stress and heat flux. It allows to choose date, region and depth as search filters, and uses PNGs on a Google map. The PNGs are retrieved from cmcc's own server.
+  Although it seems nice to look graphically, it can be seen that some tiles are not precisely overlapping. In addition, sometimes is needed to refresh the page because the application doesn't load properly. PNGs layers are displayed without a specific JS library, and the JS code is quite complex compared to other existing solutions using libraries. Therefore this solution is not well re-usable.
+\\ \emph{Overall rating: \textbf{Ok}}
+
 %Existing tech - other mentions
 \subsection{Other mentions}
 In the folowing section we will describe excisting technology used by government agencies and
 \subsubsection{Danish Centre of Ocean and Ice}
 \emph{Link: \url{http://http://ocean.dmi.dk/anim/index.uk.php }} \\%make sure to use //
-  The solution by the Danish Center of Ocean and Ice can display temperature, salinity and current which are the most important factors of the Sintef simulation. This said it lacks the ability to choose depth and specify a date interval. The data is shown as static PNGs, thus the map is not interactive. There is, on the other hand, a posibility to choose different geographical areas with the highest level of detail around Denmark. This is on the same level as Sintef's excisting solution.
+  The solution by the Danish Center of Ocean and Ice can display temperature, salinity and current which are the most important factors of the Sintef simulation. This said it lacks the ability to choose depth and specify a date interval. The data is shown as static PNGs, thus the map is not interactive. There is, on the other hand, a posibility to choose different geographical areas with the highest level of detail around Denmark. This is on the same level as Sintef's existing solution.
 \\ \emph{Overall rating: \textbf{Bad}}
 
 \subsubsection{Fisheries and Oceans Canada}
