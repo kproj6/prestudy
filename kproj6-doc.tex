@@ -127,8 +127,27 @@ The assignment set forth by SINTEF is to improve the current solution to be able
 \chapter{Current situation}
 In this chapter we will explore the solution SINTEF is currently using, and the challenges and limitations it poses. After looking into this, we will describe the evaluation criteria that will be used to assess the alternative solutions the group has found. 
 \section{Current system}
-The current system deployed at SINTEF 
+<Figure of SinMod landing page for location>
+\\
+\\
+The current system deployed at SINTEF serves their clients by providing access to a collection of more than 100 000 pre generated PDF files. These files contain information on currents, salinity, and temperature. The user may choose what information he wants by selecting parameters in the drop down menus. 
+
+If the user chooses a specific site from the map or location drop down, he will be presented with key data for this area. This includes statistical information such as maximum current speed, average current speed and so forth, as well as geographical position. 
+
+The system will also present a set of pre defined graphs, including current roses, tidal ellipsis and vertical profiles. The graphs are given for standard attributes (e.g depth 2 meters), and for some of them, there is an option of downloading a PDF containing graphs for other values of the given attributes. 
+
 \section{Challenges}
+As the PDFs are pre generated, there is a clear limitation to what information the user may request. If a user wants to know, for example, the connection between salinity and current speed at a given location, the user must download two different PDFs and manually compare these. 
+
+The graphs given for a specific location are only given for limited values of the critical attributes. If we look at the current rose, it is presented for a depth of 2 meters. If the user is really interested in the current rose for 10 meters, he has to download the PDF containing all possible current roses. 
+
+The same is true for the maps that can be generated for a specific site. The user may choose period (a single month may be selected), and one of the five variables. This gives the user a PDF with one map for each depth that can be calculated. 
+
+For a user that knows what data is interesting, this is a complicated and data heavy way of delivering information. The PDFs seems to range in size from 125kB to around 3MB, depending on what information is requested. The region maps are the absolute largest in file size, ranging from 1 to 3MB, while the files containing the current roses are quite small, in the 100-200kB range. 
+
+On a computer with broadband connection, the size of the files is not very problematic. For these users, the biggest challenge is the fact that the user can not specify what kind of data they want plotted, and have to look through quite a lot of pages to get the information needed. For a user on a low bandwidth connection and/or on a mobile device, the size of the files is a more pressing problem. On an EDGE connection the theoretical best download time for a 3MB file is 62,5 seconds at 384kbit/s.
+http://www.3gpp.org/technologies/keywords-acronyms/102-gprs-edge
+
 \section{Evaluation criteria}
 
 \chapter{Possible solutions}
