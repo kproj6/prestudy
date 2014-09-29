@@ -61,7 +61,7 @@ Na na na na na na na, Batman!!!
 \vspace{2.5cm}
 \begin{tabularx}{\textwidth}{@{\extracolsep{1cm}} X X }
 \dotfill & \dotfill \\
-~Arve Nygård & ~Anders Smedegaard \\[1cm]
+~Arve Nygård & ~Anders Smedegaard Pedersen \\[1cm]
 \dotfill & \dotfill \\
 ~Emil Jakobus Schroeder & ~Hans Kristian Henriksen \\[1cm]
 \dotfill & \dotfill \\
@@ -152,12 +152,174 @@ http://www.3gpp.org/technologies/keywords-acronyms/102-gprs-edge
 
 \chapter{Possible solutions}
 The group has used the first part of the project investigating what solutions would best suit SINTEFs needs. In the chapter we present the different solutions we have found, along with an assessment on how each solution is rated in accordance to the evaluation criteria. 
-\section{Commercial solutions}
-\section{Open source solutions}
-\section{Custom solutions}
+
+\section{Back-end}
+\subsection{GeoServer}
+
+Does not support NetCDF natively. There exsists a community plugin that enables you to read from NetCDF files, but the support seems very shifty. Does not seem to be support for more than a single file, and metadata looks like a pain to extract. Further investigation was aborted.
+
+\section{Front-end}
+
+  \subsection{Map services}
+
+  A central part of the product requirement is an interactive map to display simulated data in a dynamic manner. There exists several solutions to create such a map. In this section we will discuss and compare the most relevant of these in the context of our assignment and the product requirements.
+
+  \subsubsection{LeafletJS}
+  \begin{tabular}{|p{4cm}|p{8cm}|}
+    \hline
+    Home page: & \url{http://www.leafletjs.com} \\
+    \hline
+    Service functionality: & Creating mobile-friendly interactive maps. \\
+    \hline
+  \end{tabular}
+  
+  \paragraph{Introduction} \indent
+  LeafletJS ("Leaflet" for the rest of the section) is an open source javascript library for creating mobile-friendly interactive maps. it's licenced under the \href{'https://github.com/Leaflet/Leaflet/blob/master/LICENSE'}{2-clause BSD License}, which makes it free to use in comercial applications as long as a credit is added somewhere in the user interface.
+  Even though Leaflet is free to use it is dependant on a third party to provide the map tiles. These may not be free to use.
+
+  \paragraph{Features}
+  Leaflet has the features you'd expect from a modern interactive map. This includes paning with inertia, zooming and the ability to add markers. It also supports double-tap and pinch to zoom for IOS and Androidon mobile phones. Furthermore all the five biggest web browsers are supported, including graceful fallback for old versions.
+  The most powerful feature of Leaflet is the ability to add layers. 
+  \newline The different supported layers are:
+
+  \begin{itemize}
+    \item Tile layers
+    \item Marker layers
+    \item Pop-ups
+    \item Vector layers
+    \item GeoJSON layers
+    \item image overlays
+    \item WMS layers
+    \item Layer groups
+  \end{itemize}
+
+  For our purposes the ability to get map tiles from different sources may be very interesting. This gives us the ability to for example show both nautical maps and regular land maps at the convenience of the user. At zoom levels covering large geographical areas it will probably be most ideal to show the relevant simulated data as overlayed PNGs. This is easily achieved with image overlays in Leaflet. If we want to show very detailed data when zoomed further in, we might be able to use vector layers to visualize the data. It is also possible to use a GeoJSON layer to convert data formatted as GeoJSON to vectors.
+  It is also possible to use Web Map Service (WMS) to overlay, for example, metrological data on a map. Eventhough this is a format that is used by large organizations like the National Oceanic and Atsmopheric Administration (\url{noaa.gov}) we have been advised against using this format due to it's negative effect on the speed and responsiveness experieced by the end-user. \footnote{Iván Sánchez, How to build slow maps @ Geospatial Data and Location-based Search conference. Prinsens Gate 49, Trondheim, September 24, 2014}
+  Furthermore Leaflet can be extended with plugins. These can relatively easily be written in Javascript or an excisting plugin can be downloaded and used. A relevant plugin to our needs could for exmaple be heatmap.js (http://www.patrick-wied.at/static/heatmapjs/).
+
+  \paragraph{Summary}
+  Leaflet is very suitable for our needs in respect to creating an interactive map overlayed with visualizations of relevant data created by the Sintef ocean forecast simulations. It's lightweight(33 kilobytes), made to be compatible with mobile phones and very flexible in possibilities to display data on maps. It's also well documented.
+
+  \subsubsection{OpenLayers}
+  \begin{tabular}{|p{4cm}|p{8cm}|}
+    \hline
+    Home page: & \url{http://openlayers.org/} \\
+    \hline
+    Service functionality: & A high-performance, feature-packed library for all your mapping needs. \\
+    \hline
+  \end{tabular}
+  
+  \paragraph{Introduction} \indent
+  OpenLayers is an open source (provided under the \href{'https://github.com/Leaflet/Leaflet/blob/master/LICENSE'}{2-clause BSD License}) JavaScript library for displaying map data in web browsers. It provides an API for building rich web-based geographic applications similar to Google Maps and Bing Maps. The library was originally based on the Prototype JavaScript Framework. Since November 2007 OpenLayers is an Open Source Geospatial Foundation project.
+  The current stable version, OpenLayers 3.0, has been released August 29, 2014.
+
+  \paragraph{Features}
+  OpenLayers provides support to the following functionalities:
+
+  \begin{description}
+    \item[Tile layers] It pulls tiles from OSM, Bing, MapBox, Stamen, MapQuest, and any other XYZ source you can find. OGC mapping services and untiled layers also supported.
+    \item[Vector layers] Renders vector data from GeoJSON, TopoJSON, KML, GML, and a growing number of other formats.
+    \item[Fast \& Mobile Ready] Mobile support is out of the box, and it is possible to build lightweight custom profiles with just the needed components.
+    \item[Cutting Edge \& Easy to Customize] Map rendering leverages WebGL, Canvas 2D, and HTML5. Map styling is controlled with straight-forward CSS.
+  \end{description}
+
+  \subsubsection{Initial load time}
+  The initial load time of the map is ok on a PC. The total loading time of the example (html with map and WMS tiles) took around 4 seconds. The size of the Javascript library (ol.js) is 129 KB, and first time (so without any sot of browser caching) it has been fetched in 473 ms.
+  \\ \emph{Score: \textbf{Med}}
+  \subsubsection{Responsiveness}
+  It's quite fast when pan, but not so fast when zooming in (438 ms + 2.43 s for DNS lookup of the WMS server in the example) or out (around 400 ms was logged, on average, as the time to get tiles from the server, because there is no need of DNS lookup, but the overall perceived time is around 1s).
+  \\ \emph{Score: \textbf{Med}}
+  \subsubsection{Detail and dynamism}
+  The detail of the image is defined by PNG provided by the WMS server. Vector layers are also well drawn. Tile layers are updated on zooming.
+  \\ \emph{Score: \textbf{High}}
+  \subsubsection{Ease of use}
+  It is quite easy to implement. The code needed is low, and it is easily convertable into Leaflet format. There are a lot of provided working examples, but it is not well documented yet for the version 3.0 (that has been released very recently: at the end of August 2014). Anyway, the detailed API documentation is provided.
+  \\ \emph{Score: \textbf{Med}}
+  \subsubsection{Summary}
+  It is a library used in a lot of applications, dynamic, with a lot of features. On the contrary, it is less lightweight than LeafletJS, not so well documented and not always so fast as experienced by the user, especially in zooming.
+  \\ \emph{Overall rating: \textbf{Good}}
+
+%BEGINNING of existing tech template - COPY and reuse
+\subsection{Solution name}
+\begin{tabular}{|p{4cm}|p{8cm}|}
+
+\hline
+Service page: & \url{http://www.address.com} \\%add link somehow
+\hline
+Service functionality: & Displaying weather or sea data. \\
+\hline
+Key technologies used: & PNG, Polygons, Thredds, WMS, TMS, JPG, GIF, OpenLayers, Leafjets, D3 \\
+\hline
+\end{tabular}
+\subsubsection{Introduction}
+Write short about the service, what it does and how it does it.
+\subsubsection{Initial load time}
+Write about the first loading of the map with overlays. How much time does it take (fast/ok/slow/very slow?).
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Responsiveness}
+Write about what happens when you scroll or pan. Does it take a long time?
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Detail and dynamism}
+How detailed are the plots, does it update image-sets on zooming? (Minus for static solutions.) 
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Ease of use}
+Write about how easy it is to use it. Do we manage to get it to do/show what we want. Do we have to click or otherwise navigate through a lot?
+\\ \emph{Score: \textbf{Low/Med/High}}
+\subsubsection{Summary}
+Write about main strengths and weaknesses. Talk about what we can utilize/learn from this solution for other/custom solutions. Make priorities for score. Responsiveness is a bit less important while ease of use pulls more down than up (a bad ease of use can ruin all).
+\\ \emph{Overall rating: \textbf{Bad/Ok/Good/Very Good}}
+%alternativly : \textbf{Overall rating: Bad/Ok/Good/Very Good}
+%END of existing tech template
+
+%Existing tech - Italian solution
+\subsection{Adriatic Forecasting System}
+\emph{Link: \url{http://oceanlab.cmcc.it/afs/}} \\%make sure to use //
+  The solution, by the Operational Oceanography Group Italy and cmcc Ocean-Lab, can display temperature, salinity, currents, sea surface height, wind stress and heat flux. It allows to choose date, region and depth as search filters, and uses PNGs on a Google map. The PNGs are retrieved from cmcc's own server.
+  Although it seems nice to look graphically, it can be seen that some tiles are not precisely overlapping. In addition, sometimes is needed to refresh the page because the application doesn't load properly. PNGs layers are displayed without a specific JS library, and the JS code is quite complex compared to other existing solutions using libraries. Therefore this solution is not well re-usable.
+\\ \emph{Overall rating: \textbf{Ok}}
+
+%Existing tech - other mentions
+\subsection{Other mentions}
+In the folowing section we will describe excisting technology used by government agencies and
+\subsubsection{Danish Centre of Ocean and Ice}
+\emph{Link: \url{http://http://ocean.dmi.dk/anim/index.uk.php }} \\%make sure to use //
+  The solution by the Danish Center of Ocean and Ice can display temperature, salinity and current which are the most important factors of the Sintef simulation. This said it lacks the ability to choose depth and specify a date interval. The data is shown as static PNGs, thus the map is not interactive. There is, on the other hand, a posibility to choose different geographical areas with the highest level of detail around Denmark. This is on the same level as Sintef's existing solution.
+\\ \emph{Overall rating: \textbf{Bad}}
+
+\subsubsection{Fisheries and Oceans Canada}
+\emph{Link: \url{http://www.tides.gc.ca/eng}} \\%make sure to use //
+  The solution of the Canadian government resembels the Danish one. It is possible to choose a geographical area on a static map. By choosing an area you get the oppotunity to choose a smaller, more sepcific area. The bug difference is that all data is presented as text in tables, thus making it less convinient and intuitive to use.
+\\ \emph{Overall rating: \textbf{Bad}}
+
+\subsubsection{Ocean viewer}
+\emph{Link: \url{http://www.oceanviewer.org}} \\%make sure to use /
+  Ocean Viewer is a pilot project of the Marine Environmental Observation Prediction and Response Network (MEOPAR) of Canada. It gathers data from different sources and displays it as PNGs overlayed on a map. You can select different geographical areas on a customized Google Map and different data from a menu (temperature, salinity and others). Like the Danish solution the PNGs can be shown in sequence to show changes over time.
+\\ \emph{Overall rating: \textbf{Ok}}
+
+\subsubsection{Sea temperatures and Currents - Bureau of Meteorology}
+\emph{Link: \url{http://www.bom.gov.au/oceanography/forecasts/}} \\%make sure to use //
+  The Australian Bureau of Meteorology has a solution that is very similar to the other national agencies. You can choose a geographical area on a static map. Also here the data is visualized with images overlayed on a static map, with the posibility to loop through the images to show changes in the data over time.
+\\ \emph{Overall rating: \textbf{Ok}}
+
+\subsubsection{Wind map}
+\emph{Link: \url{http://hint.fm/wind/}} \\%make sure to use //
+  Wind map is a personal art project that gets surface wind data from the American government agency National Digital Forecast Database and displays it as moving curved lines on a map. This makes for a very intuivive visualization of the data that give a good general picture of the actual real-world situation. It's zoomable and can pan. By clicking on a specific point on the map you get the wind speed and coordinates of the point. A draw back might be the use on moblie devices which may be suboptimal.
+\\ \emph{Overall rating: \textbf{Good}}
+
+\subsubsection{MapTiler}
+\emph{Link: \url{http://www.maptiler.org/}} \\%make sure to use //
+  MapTiler is an application for online map puplishing. It makes it possible to create tiles that can be overlayed over other maps like Google Maps, Open Street Map and others. It's written in C/C++ and claims to be a lot faster than other existing solutions. A draw back seems to be that it's made for overlaying a pre generated directory of images rather than dynamic data like the ocean forecast data.
+\\ \emph{Overall rating: \textbf{Bad/Ok/Good/Very Good}}
+
 
 \chapter{Recommendation}
 Based on the study of possible solutions in the previous chapter, the group will give a recommendation.
+
+\chapter{My fucking chapter}
+\section{dfsd}
+dfdsfdssf
+\subsection{sdfsd}
+bhdgjghdbsfbfsdsf
 
 
 % Sources cited in the document
