@@ -223,13 +223,13 @@ This solution presents the user with a conventional map interface. On the sides 
 
 \chapter{Back-end}
 
-  \section{GeoServer}
-  Does not support NetCDF natively. There exist a community plugin that enables you to read from NetCDF files, but the support seems very shifty. Does not seem to have support for more than one file and metadata looks like a pain to extract. Further investigation was aborted.
+\section{GeoServer}
+Does not support NetCDF natively. There exist a community plugin that enables you to read from NetCDF files, but the support seems very shifty. Does not seem to have support for more than one file and metadata looks like a pain to extract. Further investigation was aborted.
 
-  \section{THREDDS}
-  \begin{quote}
-  The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental \textbf{D}istributed \textbf{D}ata \textbf{S}ervices} Data Server (TDS) is a web server that provides metadata and data access for scientific datasets, using OPeNDAP, OGC WMS and WCS, HTTP, and other remote data access protocols. \cite{TDS:Web}
-  \end{quote}
+\section{THREDDS}
+\begin{quote}
+The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental \textbf{D}istributed \textbf{D}ata \textbf{S}ervices} Data Server (TDS) is a web server that provides metadata and data access for scientific datasets, using OPeNDAP, OGC WMS and WCS, HTTP, and other remote data access protocols. \cite{TDS:Web}
+\end{quote}
 
   Except supporting multiple data access protocols, TDS is able to virtually aggregate multiple netCDF files to one dataset that can be used for queries such as selecting a region and sending it's data in specified format. Dataset configurations are done via NcML\footnote{\textbf{N}et\textbf{C}DF \textbf{M}arkup \textbf{L}anguage}, which is a dialect of XML.
 
@@ -398,7 +398,27 @@ This solution presents the user with a conventional map interface. On the sides 
 	
 
 \chapter{Recommendation}
-Based on the study of possible solutions in the previous chapter, the group will give a recommendation.
+Based on the study of possible solutions in the previous chapter, the group has made the following recommendation to the customer.
+
+\section{Front-end}
+As the group has looked into the situation at SINTEF, as well as other solutions in production, the conclusion is rather clear. SINTEF requires a very specific front end, with custom graphs, and the ability to add more functionality at a later stage. As far as existing solutions go, only the Godiva2 system has been close to performing the necessary tasks to serve SINTEFs needs. This system is however not very easy to adapt, and the group is of the opinion that changing this system to fit custom needs may be to much work to justify.
+
+With this in mind, the group feels that the only realistic solution for the front-end is to develop a custom system from scratch.
+
+\section{Back-end}
+For the back-end, the group is divided in its recommendation. From our investigation into different technologies, it seems like THREDDS is a solution that is generally implemented for working with NetCDF files. Advantages of using this is that there exists documentation, maintenance, and updates. The group has had trouble configuring THREDDS, and has also gotten the impression that SINTEF is not perfectly satisfied with its performance. 
+
+The group feels confident that a custom back-end prototype can be made, and that it will be able to meet the requirements. This will give the customer more flexibility in functionality and expandability, but will obviously not be as complete or well supported as THREDDS.
+
+The group asks SINTEF to make a decision for a back-end solution based on the information in this report.
+
+\section{Different paths}
+As SINTEF is given a choice for how to proceed, the group sees two paths forward in the project:
+\begin{enumerate}
+\item THREDDS back-end: Given that SINTEF chooses to use a THREDDS back-end, the group asks SINTEF to provide a configured THREDDS server. The group will focus their work on the front-end, and attempt to make a prototype that replicates most functionality from todays site.
+\item Custom back-end: Given that SINTEF chooses a custom back-end, the team will split into two groups, and attempt to make a prototype back-end, as well as a prototype front-end. In this scenario, both the front- and back-end will have limited capabilities, but will demonstrate what is possible with a fully custom solution.
+\end{enumerate}
+
 
 % Sources cited in the document
 % uncomment when there are some citations, uncomment bibtex in Makefile
