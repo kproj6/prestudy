@@ -215,6 +215,11 @@ The group has used the first part of the project investigating what solutions wo
   \emph{Link: \url{http://www.bom.gov.au/oceanography/forecasts/}} \\%make sure to use //
     The Australian Bureau of Meteorology has a solution that is very similar to the other national agencies. You can choose a geographical area on a static map. Also here the data is visualized with images overlayed on a static map, with the posibility to loop through the images to show changes in the data over time.
   \\ \emph{Overall rating: \textbf{Ok}}
+  
+  \section{yr.no Map Service}
+  \emph{Link: \url{http://yr.no/kart}} \\%make sure to use //
+This solution presents the user with a conventional map interface. On the sides and top there are menus for selecting which variable and timestep should be displayed. The user is only allowed to select a timestep about 8 days from the current time. Interesting variables include sea temperature, salinity and sea currents, each has it’s own . There is no way to select depth, and all data seems to be for the surface values. The chosen variable is added as an overlay of png tiles using OpenLayers. The tiles are fetched using WMS from a norwegian meteorological service server. On the map there are several measurement stations displayed, that give information when clicked. In addition, clicking anywhere on the map displays several plots predicting the next two days of weather for that spot.
+  \\ \emph{Overall rating: \textbf{Ok}}
 
 \chapter{Back-end}
 
@@ -257,6 +262,21 @@ The group has used the first part of the project investigating what solutions wo
   \emph{Link: \url{http://www.maptiler.org/}} \\%make sure to use //
     MapTiler is an application for online map puplishing. It makes it possible to create tiles that can be overlayed over other maps like Google Maps, Open Street Map and others. It's written in C/C++ and claims to be a lot faster than other existing solutions. A draw back seems to be that it's made for overlaying a pre generated directory of images rather than dynamic data like the ocean forecast data.
   \\ \emph{Overall rating: \textbf{Bad/Ok/Good/Very Good}}
+  
+    \section{ncWMS}
+  \emph{Link: \url{http://www.resc.rdg.ac.uk/trac/ncWMS/}} \\%make sure to use //
+  	\paragraph{Introduction}
+    ncWMS is an open source, free to use, java server application. It was created to support interactive browsing of gridded four-dimensional netCDF data over the web. Clients will send request containing the wanted coordinates (latitudes, longitudes, depth and time), what variable is to be displayed, projection, format and size the response should be. ncWMS, which has been configured to read from datasets (for example sets of netCDF files or a THREDDS server), responds to a request with an image of the desired type. ncWMS adheres to the WMS specification (WMS 1.3.0 and 1.1.1 are supported).
+    \paragraph{Configuration}
+    ncWMS is mainly configured through a web interface, where you can add datasets and change server settings. A dataset can be: a single netCDF file, an OPeNDAP endpoint (a service provided by THREDDS), a NcML file or a glob aggregation (using wildcard characters like ). It is possible to configure which variables of a dataset to expose and how. Each dataset can also be set to automatically refresh at certain intervals. The server can be set to cache data, to reduce cpu load at the expense of memory and disk space.
+    \paragraph{Aggregation}
+    The glob aggregation or NcML work well with files that cover the same area, but contain different timesteps. To handle different areas and different resolutions it may be possible to use THREDDS/OPenDAP or NcML.
+    \paragraph{Perfomance}
+    Testing both local and publicly available ncWMS servers the performance seems good. When using the godiva2 browser based client or sending individual requests the server mostly responds quickly, with some idiopathic exceptions. Transmitting the map data to the client as png images should be a bandwidth-efficient way to do it, as well as moving the computation load away from the client. When starting the server application or adding a dataset, the server needs some time to load some information from the datasets. This only takes a few seconds, even for a few hundred GB of local netCDF files.
+    \paragraph{Summary}
+    ncWMS does a lot of what we need the back-end of our solution to do. It handles the extraction, downsampling and projection of the data, creating an image ready to be used in a map widget or on it’s own. It can only handle requests for a few kinds of plots. It is open source, and is free to use under a modified BSD license. To serve all the plots and data required it would need modification.
+  \\ \emph{Overall rating: \textbf{Good}}
+
 
   
 %%%
@@ -342,6 +362,40 @@ The group has used the first part of the project investigating what solutions wo
 
   \subsection{Comparison of Leaflet and OpenLayers}
     For the purpose of creating an interactive map we've boiled it down to either using LeafletJS or OpenLayers. As the description of each of the individual libraries above shows, the two are have many of the same capabilities. Both gives us the posibility to overlay visulizations of data in different ways. An reason for choosing Leaflet is the extensive documentation of the current version, a point where OpenLayers are lacking at the moment. Despite this OpenLayers support of WTMS and WMSC is such a strong argument in it's favor that we jugde it as the best fit for our purposes.
+    
+  \section{Godiva2}
+     \begin{tabular}{|p{4cm}|p{8cm}|}
+     \hline
+     Example page: & \url{http://behemoth.nerc-essc.ac.uk/ncWMS/godiva2.html} \\
+     \hline
+     Service functionality: & A browser client made to browse data served by a ncWMS server. \\
+     \hline
+   \end{tabular}
+   
+  \paragraph{Introduction}
+  Godiva2 was created as a companion for ncWMS, to display the pngs served by ncWMS as tiles in a map interface. It is a fairly simple html page using JavaScript. \\
+   It presents the user with a pannable, zoomable map interface of the earth. Variables (for example ocean temperature) can be selected from a menu. An overlay is added to the map, and the map zooms and pans to show the relevant area. The user can select the date, time of day and depth, updating the map immediately. Clicking on the map brings up a context menu, where a vertical profile plot can be created for that spot. Selecting a tool in the map interface, the user can draw a line on the map, and a plot is created showing the value of the selected variable along that line. There is a menu to select a different WMS, changing the background map and projection of any overlays. The site allows the user to grab a permalink of the current state of the map.
+
+	\paragraph{Load time}
+	Before selecting a variable, only a list of available variables and the background map are fetched. Testing Godiva2 on a local ncWMS server the initial load time is low. Tests using publicly available datasets vary, but some have low load time, indicating that the slower ones might just have less available resources.
+   \\ \emph{Score: \textbf{Good}}
+	
+	\paragraph{Responsiveness}
+	The responsiveness of panning and zooming the map, as well as changing the desired depth and timestep varies quite a bit. This is true both for local and remote datasets.
+   \\ \emph{Score: \textbf{Medium}}
+	
+	\paragraph{Detail and dynamism}
+	Every bit of detail available in the dataset is shown, as required by the level of zoom.
+   \\ \emph{Score: \textbf{High}}
+	
+	\paragraph{Ease of Use}
+	The menus for changing variable, depth and timestep are all intuitive and easy to use. The map interface follows the conventions for zooming and panning with the mouse.
+   \\ \emph{Score: \textbf{High}}
+	
+	\paragraph{Summary}
+	This is a product made to browse 4 dimensional geospatial data like the ones we want to present. The look and feel is slightly outdated, but the functionality it has works well. It is open source. It and the third party libraries are licensed under free software licenses. It (and the ncWMS server) would need to be modified in order to display all the data and charts found in the current solution.
+   \\ \emph{Overall rating: \textbf{Good}}
+	
 
 \chapter{Recommendation}
 Based on the study of possible solutions in the previous chapter, the group will give a recommendation.
