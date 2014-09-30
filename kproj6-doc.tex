@@ -217,10 +217,18 @@ The group has used the first part of the project investigating what solutions wo
   \\ \emph{Overall rating: \textbf{Ok}}
 
 \chapter{Back-end}
+
   \section{GeoServer}
+  Does not support NetCDF natively. There exist a community plugin that enables you to read from NetCDF files, but the support seems very shifty. Does not seem to have support for more than one file and metadata looks like a pain to extract. Further investigation was aborted.
 
-  Does not support NetCDF natively. There exsists a community plugin that enables you to read from NetCDF files, but the support seems very shifty. Does not seem to be support for more than a single file, and metadata looks like a pain to extract. Further investigation was aborted.
+  \section{THREDDS}
+  \begin{quote}
+  The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental \textbf{D}istributed \textbf{D}ata \textbf{S}ervices} Data Server (TDS) is a web server that provides metadata and data access for scientific datasets, using OPeNDAP, OGC WMS and WCS, HTTP, and other remote data access protocols. \cite{TDS:Web}
+  \end{quote}
 
+  Except supporting multiple data access protocols, TDS is able to virtually aggregate multiple netCDF files to one dataset that can be used for queries such as selecting a region and sending it's data in specified format. Dataset configurations are done via NcML\footnote{\textbf{N}et\textbf{C}DF \textbf{M}arkup \textbf{L}anguage}, which is a dialect of XML.
+
+  Although TDS seems to support everything that is needed for this project, it's installation and especially configuration for agreggation and special needs is quite complicated. Moreover there are doubts about speed and dealing with serving a range containing large quantitied of points. Advantage is, that SINTEF currently have a TDS running and configured, so we won't need to configure it from scratch and SINTEF employees probably have experience and knowledge about setting it up which we lack.
 
   \section{Custom solution}
   An alternative is to write a custom back-end from scratch.
