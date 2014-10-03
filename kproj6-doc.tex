@@ -261,7 +261,7 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
   \section{MapTiler}
   \emph{Link: \url{http://www.maptiler.org/}} \\%make sure to use //
     MapTiler is an application for online map puplishing. It makes it possible to create tiles that can be overlayed over other maps like Google Maps, Open Street Map and others. It's written in C/C++ and claims to be a lot faster than other existing solutions. A draw back seems to be that it's made for overlaying a pre generated directory of images rather than dynamic data like the ocean forecast data.
-  \\ \emph{Overall rating: \textbf{Bad/Ok/Good/Very Good}}
+  \\ \emph{Overall rating: \textbf{Ok}}
   
     \section{ncWMS}
   \emph{Link: \url{http://www.resc.rdg.ac.uk/trac/ncWMS/}} \\%make sure to use //
@@ -291,7 +291,7 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
   \begin{itemize}
     \item TMS
     \item WMS-c
-    \item WTMS
+    \item WMTS
   \end{itemize}
   
   \section{WMS}
@@ -301,14 +301,14 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
 
   \section{TMS}
     Tile Map Service or TMS, is a specification for storing and retrieving cartographic data, developed by the Open Source Geospatial Foundation. The TMS protocol fills a gap between the very simple standard used by OpenStreetMap and the complexity of the WMS standard, providing simple urls to tiles while also supporting alternate spatial referencing system.
-    TMS is most widely supported by web mapping clients and servers, and it is served as the basis for WTMS (the OpenGIS Web Map Tile Service OGC standard).
+    TMS is most widely supported by web mapping clients and servers, and it is served as the basis for WMTS (the OpenGIS Web Map Tile Service OGC standard).
 
   \section{WMS-c}
     The WMS Tiling Client Recommendation, or WMS-C for short, is a recommendation set forth by OSGeo for making tiled requests using WMS. It is just a recommendation on using WMS properly in order to improve performance by caching data.
     This recommendation relies on two basic concepts to support this purpose: First, cachability of map imagery can be improved by using image tiles of fixed width and height, referenced to some fixed geographic grid at fixed scales. A \"valid\" tile request is one that conforms to the specification of fixed image parameters and geographic grid(s) for a given layer. By analogy, an \"invalid\" tile request is one that does not.
     Second, caching of HTTP GET requests is further made possible by constraining the URL parameters used in the request. This recommendation identifies the WMS GetMap parameters minimally needed for a client to request a valid tile.
 
-  \section{WTMS}
+  \section{WMTS}
     Web Map Tile Service (WMTS) is a standard protocol for serving pre-rendered georeferenced map tiles over the Internet. The specification was developed and first published by the Open Geospatial Consortium in 2010
     WMTS builds on efforts to develop scalable, high performance services for web based distribution of cartographic maps. To define this standard, similar initiatives were also considered, such as Google maps and NASA OnEarth. WMTS includes both resource (RESTful approach) and procedure oriented architectural styles (KVP and SOAP encoding) in an effort to harmonize this interface standard with the OSGeo specification.
     WMTS complements earlier efforts to develop services for the web based distribution of cartographic maps. The OGC WMTS provides a complementary approach to the OGC Web Map Service (WMS) for tiling maps. WMS focuses on rendering custom maps and is an ideal solution for dynamic data or custom styled maps. WMTS trades the flexibility of custom map rendering for the scalability possible by serving of static data (base maps) where the bounding box and scales have been constrained to discrete tiles. The fixed set of tiles allows for the implementation of a WMTS service using a web server that simply returns existing files. The fixed set of tiles also enables the use of standard network mechanisms for scalability such as distributed cache systems.
@@ -400,7 +400,7 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
   \\ \emph{Overall rating: \textbf{Good}}
 
   \subsection{Comparison of Leaflet and OpenLayers}
-    For the purpose of creating an interactive map we've boiled it down to either using LeafletJS or OpenLayers. As the description of each of the individual libraries above shows, the two are have many of the same capabilities. Both gives us the posibility to overlay visulizations of data in different ways. An reason for choosing Leaflet is the extensive documentation of the current version, a point where OpenLayers are lacking at the moment. Despite this OpenLayers support of WTMS and WMSC is such a strong argument in it's favor that we jugde it as the best fit for our purposes.
+    For the purpose of creating an interactive map we've boiled it down to either using LeafletJS or OpenLayers. As the description of each of the individual libraries above shows, the two are have many of the same capabilities. Both gives us the posibility to overlay visulizations of data in different ways. An reason for choosing Leaflet is the extensive documentation of the current version, a point where OpenLayers are lacking at the moment. Despite this OpenLayers support of WMTS and WMSC is such a strong argument in it's favor that we jugde it as the best fit for our purposes.
     
   \section{Godiva2}
      \begin{tabular}{|p{4cm}|p{8cm}|}
