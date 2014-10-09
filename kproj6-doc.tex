@@ -233,7 +233,7 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
 
   Except supporting multiple data access protocols, TDS is able to virtually aggregate multiple netCDF files to one dataset that can be used for queries such as selecting a region and sending it's data in specified format. Dataset configurations are done via NcML\footnote{\textbf{N}et\textbf{C}DF \textbf{M}arkup \textbf{L}anguage}, which is a dialect of XML.
 
-  Although TDS seems to support everything that is needed for this project, it's installation and especially configuration for agreggation and special needs is quite complicated. Moreover there are doubts about speed and dealing with serving a range containing large quantitied of points. Advantage is, that SINTEF currently have a TDS running and configured, so we won't need to configure it from scratch and SINTEF employees probably have experience and knowledge about setting it up which we lack.
+  Although TDS seems to support everything that is needed for this project, it's installation and especially configuration for agreggation and special needs is not trivial. Moreover there are doubts about speed and dealing with serving a range containing large quantitied of points. Advantage is, that SINTEF currently have a TDS running and configured, so we won't need to configure it from scratch and SINTEF employees probably have experience and knowledge about setting it up which we lack.
 
   \section{Custom solution}
   An alternative is to write a custom back-end from scratch.
