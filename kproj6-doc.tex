@@ -105,7 +105,7 @@ In this first work period, we have worked in two phases. For the first phase, we
 \chapter{Assignment and use cases}
 This chapter will give a brief description of the assignment given to the group, the problem domain, as well as some example use cases. 
 \section{Domain}
-The groups assignment is connected to SINTEF's work on oceanographic simulations. By analysing large amounts of observational data, and running this through complex simulations, the goal is to predict future conditions. 
+The group's assignment is connected to SINTEF's work on oceanographic simulations. By analysing large amounts of observational data, and running this through complex simulations, the goal is to predict future conditions. 
 
 More specifically, the currents, temperature, salinity and other factors are recorded, simulated and predicted. These predictions are used mainly by stakeholders in the fish farming industry for decision support. Usually this is in conjunction with lice removal, which requires precise positioning of large supply vessels. 
 
@@ -169,7 +169,7 @@ The same is true for the maps that can be generated for a specific site. The use
 
 For a user who knows what data is interesting, this is a complicated and data heavy way of delivering information. The PDFs seems to range in size from 125kB to around 3MB, depending on what information is requested. The region maps are the absolute largest in file size, ranging from 1 to 3MB, while the files containing the current roses are quite small, in the 100-200kB range. 
 
-On a computer with broadband connection, the size of the files is not very problematic. For these users, the biggest challenge is the fact that the user can not specify what kind of data they want plotted, and have to look through quite a lot of pages to get the information needed. For a user on a low bandwidth connection and/or on a mobile device, the size of the files is a more pressing problem. On an EDGE connection the theoretical best download time for a 3MB file is 62,5 seconds at 384kbit/s \cite{3gpp.com}.
+On a computer with broadband connection, the size of the files is not very problematic. For these users, the biggest challenge is the fact that the users cannot specify what kind of data they want plotted, and have to look through quite a lot of pages to get the information needed. For a user on a low bandwidth connection and/or on a mobile device, the size of the files is a more pressing problem. On an EDGE connection the theoretical best download time for a 3MB file is 62,5 seconds at 384kbit/s \cite{3gpp.com}.
 
 \section{Evaluation criteria}
 SINTEF's main goal with this project is to be able to rid themselves of the PDF store, and generate the visualisation of data on demand. This will make for a much more flexible system, where it will be possible to add new graphs and functionality quickly. For the customers, it will make it possible to request more customised graphs and plots.
@@ -209,7 +209,7 @@ The group has used the first part of the project investigating what solutions wo
 
   \section{Ocean viewer}
   \emph{Link: \url{http://www.oceanviewer.org}} \\%make sure to use /
-    Ocean Viewer is a pilot project of the Marine Environmental Observation Prediction and Response Network (MEOPAR) of Canada. It gathers data from different sources and displays it as PNGs overlayed on a map. You can select different geographical areas on a customized Google Map and different data from a menu (temperature, salinity and others). Like the Danish solution the PNGs can be shown in sequence to show changes over time.
+    Ocean Viewer is a pilot project of the Marine Environmental Observation Prediction and Response Network (MEOPAR) of Canada. It gathers data from different sources and displays it as PNGs overlayed on a map. You can select different geographical areas on a customized Google Map and different data from a menu (temperature, salinity and others). Like the Danish solution the PNGs can be shown in sequence to illustrate changes over time.
   \\ \emph{Overall rating: \textbf{Ok}}
 
   \section{Sea temperatures and Currents - Bureau of Meteorology}
@@ -219,28 +219,28 @@ The group has used the first part of the project investigating what solutions wo
   
   \section{yr.no Map Service}
   \emph{Link: \url{http://yr.no/kart}} \\%make sure to use //
-This solution presents the user with a conventional map interface. On the sides and top there are menus for selecting which variable and time step should be displayed. The user is only allowed to select a time step about 8 days from the current time. Interesting variables include sea temperature, salinity and sea currents, each has it’s own . There is no way to select depth, and all data seems to be for the surface values. The chosen variable is added as an overlay of PNG tiles using OpenLayers. The tiles are fetched using WMS from a Norwegian meteorological service server. On the map there are several measurement stations displayed, that give information when clicked. In addition, clicking anywhere on the map displays several plots predicting the next two days of weather for that spot.
+This solution presents the user with a conventional map interface. On the sides and top there are menus for selecting which variable and time step should be displayed. The user is only allowed to select a time step about 8 days from the current time. Interesting variables include sea temperature, salinity and sea currents, each has its own overlay. There is no way to select depth, and all data seem to be for the surface values. The chosen variable is added as an overlay of PNG tiles using OpenLayers. The tiles are fetched using WMS from a Norwegian meteorological service server. On the map there are several measurement stations displayed, that give information when clicked. In addition, clicking anywhere on the map displays several plots predicting the next two days of weather for that spot.
   \\ \emph{Overall rating: \textbf{Good}}
 
 \chapter{Back-end}
 
 \section{GeoServer}
-GeoServer does not support netCDF natively. There exist a community plugin that enables you to read from netCDF files, but the support seems very shifty. GeoServer does not seem to have support for more than one file and metadata appears difficult to extract. Due to this factors, the system was deemed to not to meet the needed criteria.
+GeoServer does not support netCDF natively. There exist a community plugin that enables you to read from netCDF files, but the support seems very shifty. GeoServer does not seem to have support for more than one file and metadata appears difficult to extract. Due to these factors, the system was deemed to not to meet the needed criteria.
 
 \section{THREDDS}
 \begin{quote}
 The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental \textbf{D}istributed \textbf{D}ata \textbf{S}ervices} Data Server (TDS) is a web server that provides metadata and data access for scientific datasets, using OPeNDAP, OGC WMS and WCS, HTTP, and other remote data access protocols. \cite{TDS:Web}
 \end{quote}
 
-  Except supporting multiple data access protocols, TDS is able to virtually aggregate multiple netCDF files to one dataset that can be used for queries, such as selecting a region and sending it's data in specified format. Dataset configurations are done via NcML\footnote{\textbf{N}et\textbf{C}DF \textbf{M}arkup \textbf{L}anguage}, which is a dialect of XML.
+  Except supporting multiple data access protocols, TDS is able to virtually aggregate multiple netCDF files to one dataset that can be used for queries, such as selecting a region and sending its data in specified format. Dataset configurations are done via NcML\footnote{\textbf{N}et\textbf{C}DF \textbf{M}arkup \textbf{L}anguage}, which is a dialect of XML.
 
-  Although TDS seems to support everything that is needed for this project, it's installation, and especially configuration for aggregation and special needs, is not trivial. Moreover there are doubts about speed and dealing with serving a range containing large quantified points. One advantage is that SINTEF currently have a TDS running and configured, so we won't need to configure it from scratch, and SINTEF employees probably have experience and knowledge about setting it up, something which the group lacks.
+  Although TDS seems to support everything that is needed for this project, its installation, and especially configuration for aggregation and special needs, is not trivial. Moreover there are doubts about speed and dealing with serving a range containing large quantified points. One advantage is that SINTEF currently has a TDS running and configured, so we won't need to configure it from scratch, and SINTEF employees probably have experience and knowledge about setting it up, something which the group lacks.
 
   \section{Custom solution}
   An alternative is to write a custom back-end from scratch.
   Advantages of this are:
   \begin{itemize}
-  \item Easy deployment - written as a single service that you just launch.
+  \item Easy deployment - written as a single service that has just to be launched.
   \item Load balancing - Easily scales outwards: The servers can be put behind a load balancer. 
   \item Speed - No overhead for unused features.
   \item Code clarity - No overhead for unused features.
@@ -259,7 +259,7 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
   
   \section{MapTiler}
   \emph{Link: \url{http://www.maptiler.org/}} \\%make sure to use //
-    MapTiler is an application for online map publishing. It makes it possible to create tiles that can be overlayed over other maps, like Google Maps, Open Street Map and others. It's written in C/C++ and claims to be a lot faster than other existing solutions. A drawback seems to be that it's made for overlaying a pre generated directory of images rather than dynamic data like the ocean forecast data.
+    MapTiler is an application for online map publishing. It makes it possible to create tiles that can be overlayed over other maps, like Google Maps, Open Street Map and others. It is written in C/C++ and claims to be a lot faster than other existing solutions. A drawback seems to be that it is made for overlaying a pre generated directory of images rather than dynamic data like the ocean forecast data.
   \\ \emph{Overall rating: \textbf{Ok}}
   
     \section{ncWMS}
@@ -278,7 +278,7 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
 %%%
 \chapter{Transmission Protocols}
   There are several standardized protocols to present map data from the server to the client in order to dynamically display layers on a map.
-  In particular, two main kind of representations can be distinguished, and sometimes they're both supported by a single standard:
+  In particular, two main kind of representations can be distinguished, and sometimes they are both supported by a single standard:
   \begin{description}
     \item[Vector based layers] Data is sent from the server to the client in a textual format, such as GeoJSON
     \item[Image based layers] Data is sent from the server to the client as images, such as JPEG, PNG and GIF
@@ -312,15 +312,15 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
     WMTS complements earlier efforts to develop services for the web based distribution of cartographic maps. The OGC WMTS provides a complementary approach to the OGC Web Map Service (WMS) for tiling maps. WMS focuses on rendering custom maps and is an ideal solution for dynamic data or custom styled maps. WMTS trades the flexibility of custom map rendering for the scalability possible by serving of static data (base maps) where the bounding box and scales have been constrained to discrete tiles. The fixed set of tiles allows for the implementation of a WMTS service using a web server that simply returns existing files. The fixed set of tiles also enables the use of standard network mechanisms for scalability such as distributed cache systems.
 
   \section{Summary}
-    WMS-C is the best supported and most mature protocol, but it's a bit of a kludge overlayed on top of WMS to support tiles and it incurs some extra overhead from having to use world coordinate bounding boxes rather than tile coordinates.
+    WMS-C is the best supported and most mature protocol, but it is a bit of a kludge overlayed on top of WMS to support tiles and it incurs some extra overhead from having to use world coordinate bounding boxes rather than tile coordinates.
     TMS is fairly mature, and is specifically designed for tiles, but is not an official OGC specification.
-    WMTS is an OGC spec that is meant to replace TMS and WMS-C. It works purely in tile coordinates like TMS (although it computes them differently) but has some additional capabilities that weren't in TMS, like GetFeatureInfo. It's comparatively recent, but it is becoming more and more used, even if its implementations are less mature. It is also supported by OpenLayers.
+    WMTS is an OGC spec that is meant to replace TMS and WMS-C. It works purely in tile coordinates like TMS (although it computes them differently) but has some additional capabilities that were not in TMS, like GetFeatureInfo. It is comparatively recent, but it is becoming more and more used, even if its implementations are less mature. It is also supported by OpenLayers.
 
 %%%
 \chapter{Frontend solutions}
-  A central part of the product requirement is to display simulated data in a dynamic manner. There exists solutions to do just that, and JavaScript libraries than makes it relatively easy to create at front end solution of our own. In this section we will discuss and compare the most relevant of these in the context of our assignment and the product requirements. 
+  A central part of the product requirement is to display simulated data in a dynamic manner. There exists solutions to do just that, and JavaScript libraries that makes it relatively easy to create at front end solution of our own. In this section we will discuss and compare the most relevant of these in the context of our assignment and the product requirements. 
   \section{Custom made solution}
-    A custom made solution has the general advantage that we can built it to specification and thus make sure it meets the requirements without having to deal with other peoples code base. Trying to customize an existing solution might be as much work as building something from the bottom. In the following paragraphs we will review and rate technologies we found relevant for building a custom front end.
+    A custom made solution has the general advantage that we can build it to specification and thus make sure it meets the requirements without having to deal with other people's code base. Trying to customize an existing solution might be as much work as building something from the bottom. In the following paragraphs we will review and rate technologies we found relevant for building a custom front end.
     \subsection{LeafletJS}
     \begin{tabular}{|p{4cm}|p{8cm}|}
       \hline
@@ -331,11 +331,11 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
     \end{tabular}
     
     \paragraph{Introduction} \indent
-    LeafletJS ("Leaflet" for the rest of the section) is an open source JavaScript library for creating mobile-friendly interactive maps. It's licensed under the \href{'https://github.com/Leaflet/Leaflet/blob/master/LICENSE'}{2-clause BSD License}, which makes it free to use in commercial applications as long as a credit is added somewhere in the user interface.
+    LeafletJS ("Leaflet" for the rest of the section) is an open source JavaScript library for creating mobile-friendly interactive maps. It is licensed under the \href{'https://github.com/Leaflet/Leaflet/blob/master/LICENSE'}{2-clause BSD License}, which makes it free to use in commercial applications as long as a credit is added somewhere in the user interface.
     Even though Leaflet is free to use it is dependent on a third party to provide the map tiles. These may not be free to use.
 
     \paragraph{Features}
-    Leaflet has the features you'd expect from a modern interactive map. This includes panning with inertia, zooming and the ability to add markers. It also supports double-tap and pinch to zoom for iOS and Android on mobile phones. Furthermore all the five biggest web browsers are supported, including graceful fallback for old versions.
+    Leaflet has the features people would expect from a modern interactive map. This includes panning with inertia, zooming and the ability to add markers. It also supports double-tap and pinch to zoom for iOS and Android on mobile phones. Furthermore all the five biggest web browsers are supported, including graceful fallback for old versions.
     
     The most powerful feature of Leaflet is the ability to add layers. The different supported layers are:
 
@@ -351,11 +351,11 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
     \end{itemize}
 
     For our purposes the ability to get map tiles from different sources may be very interesting. This gives us the ability to for example show both nautical maps and regular land maps at the convenience of the user. At zoom levels covering large geographical areas it will probably be most ideal to show the relevant simulated data as overlayed PNGs. This is easily achieved with image overlays in Leaflet. If we want to show very detailed data when zoomed further in, we might be able to use vector layers to visualize the data. It is also possible to use a GeoJSON layer to convert data formatted as GeoJSON to vectors.
-    It is also possible to use Web Map Service (WMS) to overlay, for example, meteorological data on a map. Even though this is a format that is used by large organizations like the National Oceanic and Atmospheric Administration (\url{noaa.gov}) we have been advised against using this format due to it's negative effect on the speed and responsiveness experienced by the end-user. \footnote{Iván Sánchez Ortega, How to Build Slow Maps - Trondheim, September 24, 2014}
+    It is also possible to use Web Map Service (WMS) to overlay, for example, meteorological data on a map. Even though this is a format that is used by large organizations like the National Oceanic and Atmospheric Administration (\url{noaa.gov}) we have been advised against using this format due to its negative effect on the speed and responsiveness experienced by the end-user. \footnote{Iván Sánchez Ortega, How to Build Slow Maps - Trondheim, September 24, 2014}
     Furthermore Leaflet can be extended with plugins. These can relatively easily be written in JavaScript or an existing plugin can be downloaded and used. A relevant plugin to our needs could for example be heatmap.js (\url{http://www.patrick-wied.at/static/heatmapjs/}).
 
     \paragraph{Summary}
-    Leaflet is very suitable for our needs in respect to creating an interactive map overlayed with visualizations of relevant data created by the SINTEF ocean forecast simulations. It's lightweight(33 kilobytes), made to be compatible with mobile phones and very flexible in possibilities to display data on maps. It's also well documented.
+    Leaflet is very suitable for our needs in respect to creating an interactive map overlayed with visualizations of relevant data created by the SINTEF ocean forecast simulations. It is lightweight (33 kilobytes), made to be compatible with mobile phones and very flexible in possibilities to display data on maps. It is also well documented.
 
   \subsection{OpenLayers}
    \begin{tabular}{|p{4cm}|p{8cm}|}
@@ -380,13 +380,13 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
    The initial load time of the map is ok on a PC. The total loading time of the example (HTML with map and WMS tiles) took around 4 seconds. The size of the JavaScript library (ol.js) is 129 KB, and the first time (without any sort of browser caching) it was fetched in 473 ms.
    \\ \emph{Score: \textbf{Med}}
    \subsubsection{Responsiveness}
-   It's quite fast when pan, but not so fast when zooming in (438 ms + 2.43 s for DNS lookup of the WMS server in the example) or out (around 400 ms was logged, on average, as the time to get tiles from the server, because there is no need of DNS lookup, but the overall perceived time is around 1s).
+   It is quite fast when pan, but not so fast when zooming in (438 ms + 2.43 s for DNS lookup of the WMS server in the example) or out (around 400 ms was logged, on average, as the time to get tiles from the server, because there is no need of DNS lookup, but the overall perceived time is around 1s).
    \\ \emph{Score: \textbf{Med}}
    \subsubsection{Detail and dynamism}
    The detail of the image is defined by PNG provided by the WMS server. Vector layers are also well drawn. Tile layers are updated on zooming.
    \\ \emph{Score: \textbf{High}}
    \subsubsection{Ease of use}
-   It is quite easy to implement. The code needed is low, and it is easily convertible  into Leaflet format. There are a lot of provided working examples, but it is not well documented yet for the version 3.0 (that has been released very recently: at the end of August 2014). Anyway, the detailed API documentation is provided.
+   It is quite easy to implement. The code needed is low, and it is easily convertible into Leaflet format. There are a lot of provided working examples, but it is not well documented yet for the version 3.0 (that has been released very recently: at the end of August 2014). Anyway, the detailed API documentation is provided.
    \\ \emph{Score: \textbf{Med}}
    \subsubsection{Summary}
    It is a library used in a lot of applications, dynamic, with a lot of features. On the contrary, it is less lightweight than LeafletJS, not so well documented and not always so fast as experienced by the user, especially in zooming.
@@ -394,11 +394,11 @@ The THREDDS\footnote{\textbf{Th}ematic \textbf{R}ealtime \textbf{E}nvironmental 
   
   \subsection{Wind map}
   \emph{Link: \url{http://hint.fm/wind/}} \\%make sure to use //
-    Wind map is a personal art project that gets surface wind data from the American government agency National Digital Forecast Database and displays it as moving curved lines on a map. This makes for a very intuitive visualization of the data that give a good general picture of the actual real-world situation. It's zoomable and can pan. By clicking on a specific point on the map you get the wind speed and coordinates of the point. A drawback might be the use on mobile devices which may be suboptimal.
+    Wind map is a personal art project that gets surface wind data from the American government agency National Digital Forecast Database and displays it as moving curved lines on a map. This makes for a very intuitive visualization of the data that gives a good general picture of the actual real-world situation. It is zoomable and can pan. By clicking on a specific point on the map you get the wind speed and coordinates of the point. A drawback might be the use on mobile devices which may be suboptimal.
   \\ \emph{Overall rating: \textbf{Good}}
 
   \subsection{Comparison of Leaflet and OpenLayers}
-    For the purpose of creating an interactive map we've boiled it down to either using LeafletJS or OpenLayers. As the description of each of the individual libraries above shows, the two are have many of the same capabilities. Both gives us the possibility to overlay visualisations of data in different ways. An reason for choosing Leaflet is the extensive documentation of the current version, a point where OpenLayers are lacking at the moment. Despite this OpenLayers support of WMTS and WMSC is such a strong argument in it's favor that we judge it as the best fit for our purposes.
+    For the purpose of creating an interactive map we have boiled it down to either using LeafletJS or OpenLayers. As the description of each of the individual libraries above shows, the two are have many of the same capabilities. Both give us the possibility to overlay visualisations of data in different ways. A reason for choosing Leaflet is the extensive documentation of the current version, a point where OpenLayers are lacking at the moment. Despite this OpenLayers support of WMTS and WMSC is such a strong argument in its favor that we judge it as the best fit for our purposes.
     
   \section{Godiva2}
      \begin{tabular}{|p{4cm}|p{8cm}|}
@@ -452,7 +452,7 @@ The group asks SINTEF to make a decision for a back-end solution based on the in
 \section{Different paths}
 As SINTEF is given a choice for how to proceed, the group sees two paths forward in the project:
 \begin{enumerate}
-\item THREDDS back-end: Given that SINTEF chooses to use a THREDDS back-end, the group asks SINTEF to provide a configured THREDDS server. The group will focus their work on the front-end, and attempt to make a prototype that replicates most functionality from today's site.
+\item THREDDS back-end: Given that SINTEF chooses to use a THREDDS back-end, the group asks SINTEF to provide a configured THREDDS server. The group will focus their work on the front-end, and attempt to make a prototype that replicates most functionalities from today's site.
 \item Custom back-end: Given that SINTEF chooses a custom back-end, the team will split into two groups, and attempt to make a prototype back-end, as well as a prototype front-end. In this scenario, both the front- and back-end will have limited capabilities, but will demonstrate what is possible with a fully custom solution.
 \end{enumerate}
 
